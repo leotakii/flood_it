@@ -1,0 +1,56 @@
+Aluno: Leonardo Joji Takii GRR20153683
+Inteligência Artificial, Professor Fabiano, BCC, UFPR
+
+Trabalho 1: Flood it
+
+Como o SMA* não foi finalizado, foi utilizado um algoritmo que cicla entre as cores
+de forma circular (Ex: 1,2,3,1,2,...)
+A solução não encontra sempre um estado afinal por conta das inconsistências 
+em mergeRoot().
+
+Estruturas utilizadas:
+Heap utilizado como fila de prioridade (Obtido de Robin Thomas <robinthomas2591@gmail.com>)
+
+TMapa para representar o estado inicial do tabuleiro (Obtido do programa exemplo dado)
+
+TComponente para representar uma área de mesma cor do tabuleiro. Utilizada como um nodo de um grafo que representa o estado atual do mapa.
+
+TNodo para representar um dado estado do tabuleiro. Nele há todos os componentes atuais do mapa e suas vizinhanças. Também armazena seu valor de heurística.
+
+Funções:
+
+getDistancia() tem como objetivo determinar qual componente está mais distante do componente raíz. Também ajusta as distâncias quando um merge de componentes ocorre. Seria utilizado como heurística, para encontrar um caminho que minimize a distância entre o componente raíz e o componente corrente mais distante.
+
+mostraVizinhos() faz o que seu nome implica, além de calcular o número de componentes não-raíz que estão no tabuleiro corrente. Define se o mesmo é um estado final.
+
+copiaMapa() obtém uma cópia do tabuleiro original (em forma de matriz) para ser consumido pela rotina que separa os componentes entre si.
+
+copiaNodo() se implementado copiaria um tabuleiro em forma de grafo para instanciar os estados-filho do mesmo.
+
+saoVizinhosCadastrados() verifica se um componente já está na lista de vizinhança do outro.
+
+mergeRoot() tem como objetivo alterar a cor do componente raíz e incorporar os seus vizinhos diretos (distância 1 até a raíz) de mesma cor ao raíz, assim como atualizar sua lista de vizinhança com os seus vizinhos indiretos (distância 2 até a raíz). 
+Inconsistências nessa função levaram à dificuldades técnicas de minha parte.
+Esta função iria gerar um estados filhos de um certo estado.
+
+search_component() verifica se dadas coordenadas (x,y) de um elemento da matriz, a qual componente ele será designado. Dependendo da posição do mesmo, a lista de vizinhança do
+componente dele e a dos vizinhos dele serão atualizadas.
+
+componentes() baseia-se no algoritmo recursivo de "forest fire", semelhante ao disponibilizado pelo professor no arquivo exemplo. Adiciona um componente à lista de componentes do grafo do estado inicial.
+
+get_componentes() varre uma matriz do tabuleiro (a previamente gerada por copiaMapa() ), marcando com 0's os elementos que consequentemente estarão presentes na lista de componentes.
+
+
+----------------------------------------------------------------------------------------------Rotinas não desenvolvidas:
+
+g() obteria apenas a soma dos custos do estado raíz até o atual.
+
+h() seria a função heuristica que estaria associada ao nodo atual. Caso não encontrasse dificuldades na implementação das outras funções, utilizaria uma heurística que minimizasse
+a distância entre o componente raíz e o componente mais distante dele.
+
+SMA_star() teve seu pseudo código baseado no da sua versão da Wikipedia. Seria simplesmente um A* que quando alcançasse seu limite de memória previamente estipulado, podaria os filhos do
+estado mais raso e de maior valor fcurrent() = max( fprev(),g() + h() ), ou seja, desalocaria eles da memória para liberar espaço para estados possivelmente mais promissores. O nodo pai dos filhos podados seria reinserido na fila de prioridade.
+
+
+
+
